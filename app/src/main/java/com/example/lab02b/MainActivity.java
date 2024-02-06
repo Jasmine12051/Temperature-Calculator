@@ -35,24 +35,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkInputs(String fahrenheit, String celsius){
-        if(fahrenheit.isEmpty() && celsius.isEmpty()){
-            Log.d("CHECK INPUTS", "ERROR: All inputs not provided!");
-        }
-
-        else if(celsius.matches("") && !fahrenheit.isEmpty()){
-            double fahrenheitNum = parseDouble(fahrenheit);
-            calculateCelsius(fahrenheitNum);
-        }
-        else if(fahrenheit.matches("") && !celsius.isEmpty()){
+        try {
+            if (fahrenheit.isEmpty() && celsius.isEmpty()) {
+                Log.d("CHECK INPUTS", "ERROR: All inputs not provided!");
+            } else if (celsius.matches("") && !fahrenheit.isEmpty()) {
+                double fahrenheitNum = parseDouble(fahrenheit);
+                calculateCelsius(fahrenheitNum);
+            } else if (fahrenheit.matches("") && !celsius.isEmpty()) {
                 double celsiusNum = parseDouble(celsius);
                 calculateFahrenheit(celsiusNum);
+            } else if (!fahrenheit.isEmpty() && !celsius.isEmpty()) {
+                double fahrenheitNum = parseDouble(fahrenheit);
+                calculateCelsius(fahrenheitNum);
             }
-        else if(!fahrenheit.isEmpty() && !celsius.isEmpty()){
-            double fahrenheitNum = parseDouble(fahrenheit);
-            calculateCelsius(fahrenheitNum);
         }
-        else{
-            Log.d("CHECK INPUTS", "Found Non-Numeric value!");
+        catch (NumberFormatException e){
+            Log.d("CHECK INPUTS", "THIS IS A NON-NUMERIC value!");
         }
     }
 
